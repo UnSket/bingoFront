@@ -1,0 +1,16 @@
+<div class="container">
+  <div class="row">
+    <div class="col-12 text-center">
+      <input [(ngModel)]="newProject" placeholder="New project name"/>
+      <input type="button" (click)="save()" value="save">
+      <h3 *ngIf="newProject">Проверка имя - {{newProject}}</h3>
+    </div>
+    <div class="col-12 text-left">
+      <ul class="list-unstyled">
+        <li *ngFor="let project of projects">
+          <a class="btn btn-outline-primary">{{project.id}} - {{project.name}}</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
