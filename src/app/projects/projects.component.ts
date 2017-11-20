@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {ProjectService} from '../project.service';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-projects',
@@ -9,18 +10,23 @@ import {ProjectService} from '../project.service';
 export class ProjectsComponent implements OnInit {
   newProject: string;
   projects: string[];
+  @Input() isHeader: boolean;
   save(): void {
     this.projectService.addProject(this.newProject).subscribe(data => {
       console.log(data);
       this.getProjects();
     });
   }
-  constructor( private projectService: ProjectService) { }
   getProjects(): void {
     this.projectService.getAllProjects()
       .subscribe(projects => this.projects = projects);
   }
+  constructor(
+    private projectService: ProjectService,
+    private route: ActivatedRoute
+    ) { }
   ngOnInit() {
+    this.route.data.subscribe(data => this.isHeader = data.isHeader);
     this.getProjects();
   }
 
