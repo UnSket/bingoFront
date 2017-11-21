@@ -9,7 +9,7 @@ import {Project} from '../model/Project';
   styleUrls: ['./main-menu.component.css']
 })
 export class MainMenuComponent implements OnInit {
-  project: Project;
+  project: Project = {name: '', id: 0};
 
   constructor(
     private route: ActivatedRoute,
@@ -30,8 +30,8 @@ export class MainMenuComponent implements OnInit {
   ngOnInit() {
     this.checkLocalStorage();
     const id = +this.route.snapshot.paramMap.get('id');
-    // getProject(id);
-    this.project = {name: 'Project name', id: id};
+    this.getProject(id);
+    // this.project = {name: 'Project name', id: id};
     // this.id = this.route.data
   }
 

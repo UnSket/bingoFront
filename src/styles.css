@@ -27,7 +27,13 @@ html, body {
 ul.nav{
   border: 2px solid rgba(0, 123, 255, .5);
   border-radius: 20px 20px 0 0;
-  padding: 0 12px;
+  overflow: hidden;
+}
+ul.nav > li > a{
+  border-radius: 0 !important;
+}
+ul.nav > li:first-child a{
+  padding-left: 12px;
 }
 .tab-content {
   background-color: rgba(0, 123, 255, .5);

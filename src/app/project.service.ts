@@ -3,7 +3,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs/Observable';
 import {catchError, tap} from 'rxjs/operators';
 import {of} from 'rxjs/observable/of';
-import {Project} from "./model/Project";
+import {Project} from './model/Project';
 
 
 @Injectable()
@@ -18,15 +18,15 @@ export class ProjectService {
   }
   getProject(id: number): Observable<Project> {
     const url = `${this.projectUrl}`;
-    return this.http.get<Project>(url).pipe(
-      tap(next => this.log(`fetched hero ${next}`)),
+    return this.http.get<Project>(url + `?id=${id}` ).pipe(
+      tap(next => this.log(`fetched hero ${next.name}`)),
       catchError(this.handleError<Project>(`get all project`))
     );
   }
   addProject (project: string): Observable<string> {
     console.log(project);
     return this.http.post<string>(this.projectUrl + `?name=${project}`, project).pipe(
-      tap(_ => this.log(`added project w/ id=${project}`)),
+      tap(_ => this.log(`added project id=${project}`)),
       catchError(this.handleError<string>('addHero'))
     );
   }
