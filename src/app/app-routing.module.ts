@@ -1,10 +1,12 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import {RouterModule, Routes} from '@angular/router';
-import {ProjectsComponent} from './projects/projects.component';
+import { RouterModule, Routes} from '@angular/router';
+import {WelcomeScreenComponent} from './welcome-screen/welcome-screen.component';
+import {MainMenuComponent} from './main-menu/main-menu.component';
+
 
 const routes: Routes = [
-  { path: '', component: ProjectsComponent, data: {isHeader: true} }
+  { path: '', component: WelcomeScreenComponent },
+  { path: `project/:id`, component: MainMenuComponent}
 ];
 
 @NgModule({
@@ -14,4 +16,5 @@ const routes: Routes = [
   ],
   declarations: []
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {
+}

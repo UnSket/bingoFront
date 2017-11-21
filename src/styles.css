@@ -18,3 +18,9 @@ html, body {
   display: flex;
   flex-direction: column;
 }
+.alert:first-child{
+  margin-top: 1rem;
+}
+.btn, .dropdown-item{
+  cursor: pointer;
+}

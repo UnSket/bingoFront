@@ -10,13 +10,17 @@ import { ProjectsComponent } from './projects/projects.component';
 import {ProjectService} from './project.service';
 import {HttpClientModule} from '@angular/common/http';
 import { HeaderComponent } from './header/header.component';
+import { WelcomeScreenComponent } from './welcome-screen/welcome-screen.component';
+import { MainMenuComponent } from './main-menu/main-menu.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     ProjectsComponent,
-    HeaderComponent
+    HeaderComponent,
+    WelcomeScreenComponent,
+    MainMenuComponent
   ],
   imports: [
     NgbModule.forRoot(),

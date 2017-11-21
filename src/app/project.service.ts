@@ -3,20 +3,26 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs/Observable';
 import {catchError, tap} from 'rxjs/operators';
 import {of} from 'rxjs/observable/of';
+import {Project} from "./model/Project";
 
 
 @Injectable()
 export class ProjectService {
   private projectUrl = `api/projects`;  // URL to web api
-  /** GET hero by id. Will 404 if id not found */
-  getAllProjects(): Observable<string[]> {
+  getAllProjects(): Observable<Project[]> {
     const url = `${this.projectUrl}/getAll`;
-    return this.http.get<string[]>(url).pipe(
+    return this.http.get<Project[]>(url).pipe(
       tap(_ => this.log(`fetched projects`)),
-      catchError(this.handleError<string[]>(`get all project`))
+      catchError(this.handleError<Project[]>(`get all project`))
     );
   }
-  /** POST: add a new hero to the server */
+  getProject(id: number): Observable<Project> {
+    const url = `${this.projectUrl}`;
+    return this.http.get<Project>(url).pipe(
+      tap(next => this.log(`fetched hero ${next}`)),
+      catchError(this.handleError<Project>(`get all project`))
+    );
+  }
   addProject (project: string): Observable<string> {
     console.log(project);
     return this.http.post<string>(this.projectUrl + `?name=${project}`, project).pipe(
