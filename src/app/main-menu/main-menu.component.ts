@@ -31,6 +31,7 @@ export class MainMenuComponent implements OnInit {
     this.checkLocalStorage();
     const id = +this.route.snapshot.paramMap.get('id');
     // getProject(id);
+    this.project = {name: 'Project name', id: id};
     // this.id = this.route.data
   }
 
