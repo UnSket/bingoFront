@@ -4,7 +4,8 @@
       <app-header title="Bingo creater - v 0.1"></app-header>
     </header>
     <div class="myContainer">
-      <app-projects></app-projects>
+      <app-projects
+      (redirect)="redirect($event)"></app-projects>
     </div>
   </div>
 </div>

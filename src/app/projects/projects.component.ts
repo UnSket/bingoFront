@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {ProjectService} from '../project.service';
 import {Project} from '../model/Project';
 import {ActivatedRoute, Router} from '@angular/router';
@@ -14,6 +14,7 @@ export class ProjectsComponent implements OnInit {
   choosedProject: Project = {name: 'Choose', id: -1};
   alerts: Array<string> = [];
   isDisabled = true;
+  @Output() redirect = new EventEmitter<string[]>();
 
   validate(): void {
     this.isDisabled = false;
@@ -56,8 +57,9 @@ export class ProjectsComponent implements OnInit {
       });
     } else {
       console.log('choosed - ' + this.choosedProject.name);
-      localStorage.setItem('currentProject', this.choosedProject.id.toString());
-      this.router.navigate([`/project/`, this.choosedProject.id]);
+      // localStorage.setItem('currentProject', this.choosedProject.id.toString());
+      // this.router.navigate([`/project/`, this.choosedProject.id]);
+      this.redirect.emit([`/project/`, this.choosedProject.id.toString()]);
     }
   }
   getProjects(): void {

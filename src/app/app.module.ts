@@ -12,6 +12,7 @@ import {HttpClientModule} from '@angular/common/http';
 import { HeaderComponent } from './header/header.component';
 import { WelcomeScreenComponent } from './welcome-screen/welcome-screen.component';
 import { MainMenuComponent } from './main-menu/main-menu.component';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 
 @NgModule({
@@ -27,7 +28,8 @@ import { MainMenuComponent } from './main-menu/main-menu.component';
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    BrowserAnimationsModule
   ],
   providers: [ ProjectService ],
   bootstrap: [AppComponent]
