@@ -13,6 +13,8 @@ import { HeaderComponent } from './header/header.component';
 import { WelcomeScreenComponent } from './welcome-screen/welcome-screen.component';
 import { MainMenuComponent } from './main-menu/main-menu.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { AddGroupComponent } from './add-group/add-group.component';
+import { EditComponent } from './edit/edit.component';
 
 
 @NgModule({
@@ -21,7 +23,9 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
     ProjectsComponent,
     HeaderComponent,
     WelcomeScreenComponent,
-    MainMenuComponent
+    MainMenuComponent,
+    AddGroupComponent,
+    EditComponent
   ],
   imports: [
     NgbModule.forRoot(),

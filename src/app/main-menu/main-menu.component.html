@@ -1,36 +1,32 @@
 <div class="root-bg">
-  <div class="shadow">
+  <div class="shadow"
+       [@routeAnimation]="state"
+       (@routeAnimation.done)="redirect()">
     <header>
       <app-header [title]="project.name"></app-header>
     </header>
     <div class="container">
-      <ngb-tabset type="pills">
+      <ngb-tabset #t = "ngbTabset" type="pills">
         <div class="row">
           <div class="col-12 col-lg">
-            <ngb-tab title="Simple">
-              <ng-template ngbTabContent>
-                <p>Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth
-                  master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica. Reprehenderit butcher retro keffiyeh
-                  dreamcatcher synth. Cosby sweater eu banh mi, qui irure terry richardson ex squid. Aliquip placeat salvia cillum
-                  iphone. Seitan aliquip quis cardigan american apparel, butcher voluptate nisi qui.</p>
+            <ngb-tab id="edit">
+                <ng-template ngbTabTitle><b>Add</b></ng-template>
+                <ng-template ngbTabContent>
+                <app-add-group [title]="'Add new group'" [project]="project"></app-add-group>
               </ng-template>
             </ngb-tab>
           </div>
           <div class="col-12 col-lg">
             <ngb-tab>
-              <ng-template ngbTabTitle><b>Fancy</b> title</ng-template>
-              <ng-template ngbTabContent>Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid.
-                <p>Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table
-                  craft beer twee. Qui photo booth letterpress, commodo enim craft beer mlkshk aliquip jean shorts ullamco ad vinyl
-                  cillum PBR. Homo nostrud organic, assumenda labore aesthetic magna delectus mollit. Keytar helvetica VHS salvia
-                  yr, vero magna velit sapiente labore stumptown. Vegan fanny pack odio cillum wes anderson 8-bit, sustainable jean
-                  shorts beard ut DIY ethical culpa terry richardson biodiesel. Art party scenester stumptown, tumblr butcher vero
-                  sint qui sapiente accusamus tattooed echo park.</p>
+              <ng-template ngbTabTitle><b>Edit</b></ng-template>
+              <ng-template ngbTabContent>
+                <app-edit [id]="project.id"></app-edit>
               </ng-template>
             </ngb-tab>
           </div>
           <div class="col-12 col-lg">
-            <ngb-tab title="Disabled">
+            <ngb-tab>
+              <ng-template ngbTabTitle><b>Print</b></ng-template>
               <ng-template ngbTabContent>
                 <p>Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth
                   master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica. Reprehenderit butcher retro keffiyeh

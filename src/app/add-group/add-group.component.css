@@ -1,0 +1,29 @@
+h3 {
+  cursor: pointer;
+}
+input {
+  background-color: rgba(255, 255, 255, 0.5);
+  border-radius: 15px;
+  padding: 5px 15px;
+  color: white;
+  border: none;
+  outline: none;
+}
+input:focus {
+  box-shadow: 0 0 15px 3px rgba(255, 255, 255, .5);
+}
+.editing {
+  color: #fff517 !important;
+  border-color: #fff517 !important;
+}
+::-webkit-input-placeholder {color:white;}
+::-moz-placeholder          {color:white;}/* Firefox 19+ */
+:-moz-placeholder           {color:white;}/* Firefox 18- */
+:-ms-input-placeholder      {color:white;}
+.word-block{
+  border: 1px solid rgba(255, 255, 255, .6);
+  color: white;
+  border-radius: 15px;
+  padding: 0 10px;
+  cursor: pointer;
+}

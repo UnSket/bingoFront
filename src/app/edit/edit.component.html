@@ -1,0 +1,22 @@
+<div class="row justify-content-around">
+  <div class="col-12 text-center">
+    <h3>Choose group</h3>
+  </div>
+  <div class="col-auto mt-2" *ngFor="let group of groups; index as i">
+    <button (click)="edit(editModal, i)" class="btn btn-outline-light">{{group.name}}</button>
+  </div>
+</div>
+<ng-template #editModal let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">{{currentGroup.name}}</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <app-add-group [group]="currentGroup" [title]="'Edit group'"></app-add-group>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-light" (click)="c('Close click')">Close</button>
+  </div>
+</ng-template>

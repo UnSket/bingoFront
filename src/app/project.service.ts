@@ -4,6 +4,7 @@ import {Observable} from 'rxjs/Observable';
 import {catchError, tap} from 'rxjs/operators';
 import {of} from 'rxjs/observable/of';
 import {Project} from './model/Project';
+import {WordGroup} from "./model/Group";
 
 
 @Injectable()
@@ -17,17 +18,21 @@ export class ProjectService {
     );
   }
   getProject(id: number): Observable<Project> {
-    const url = `${this.projectUrl}`;
-    return this.http.get<Project>(url + `?id=${id}` ).pipe(
-      tap(next => this.log(`fetched hero ${next.name}`)),
+    return this.http.get<Project>(this.projectUrl + `?id=${id}` ).pipe(
+      tap(next => this.log(`fetched project ${next.name}`)),
       catchError(this.handleError<Project>(`get all project`))
     );
   }
   addProject (project: string): Observable<string> {
-    console.log(project);
     return this.http.post<string>(this.projectUrl + `?name=${project}`, project).pipe(
       tap(_ => this.log(`added project id=${project}`)),
       catchError(this.handleError<string>('addHero'))
+    );
+  }
+  getGroups(id: number) {
+    return this.http.get<WordGroup[]>(this.projectUrl + `/getGroups?id=${id}` ).pipe(
+      tap(next => this.log(`fetched all groups`)),
+      catchError(this.handleError<WordGroup[]>(`get all project`))
     );
   }
   private log(message: string) {

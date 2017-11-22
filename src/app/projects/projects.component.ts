@@ -57,8 +57,7 @@ export class ProjectsComponent implements OnInit {
       });
     } else {
       console.log('choosed - ' + this.choosedProject.name);
-      // localStorage.setItem('currentProject', this.choosedProject.id.toString());
-      // this.router.navigate([`/project/`, this.choosedProject.id]);
+      localStorage.setItem('currentProject', this.choosedProject.id.toString());
       this.redirect.emit([`/project/`, this.choosedProject.id.toString()]);
     }
   }

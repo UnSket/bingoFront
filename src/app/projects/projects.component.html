@@ -14,7 +14,7 @@
   <div *ngIf="choosedProject.id === 0" class="col-12 text-center mt-3">
     <input class="md-3 newProject" [(ngModel)]="newProject" placeholder="Input new project name" (keyup)="validate()"/>
     <ngb-alert *ngFor="let alert of alerts" [dismissible]="false" type="danger">{{ alert }}</ngb-alert>
- </div>
+  </div>
   <div class="col-12 text-center mt-3">
     <input class="btn btn-success" type="button" (click)="save()" value="Commit" [disabled]="isDisabled">
   </div>
