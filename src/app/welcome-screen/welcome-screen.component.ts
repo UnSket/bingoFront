@@ -1,27 +1,20 @@
-import {AfterViewInit, Component, OnInit} from '@angular/core';
+import {AfterViewInit, Component, HostBinding, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {animate, state, style, transition, trigger} from '@angular/animations';
+import {routeAnimation} from "../animations";
 
 @Component({
   selector: 'app-welcome-screen',
   templateUrl: './welcome-screen.component.html',
   styleUrls: ['./welcome-screen.component.css'],
   animations: [
-    trigger('routeAnimation', [
-      state('inactive', style({
-        transform: 'scale(10)',
-        opacity: 0,
-      })),
-      state('active',   style({
-        transform: 'scale(1)',
-        opacity: 1
-      })),
-      transition('inactive => active', animate('1000ms ease-in')),
-      transition('active => inactive', animate('1000ms ease-in'))
-    ])
+    routeAnimation
   ]
 })
 export class WelcomeScreenComponent implements OnInit, AfterViewInit {
+  @HostBinding('@routeAnimation') get routeAnimation() {
+    return '';
+  }
   state = 'inactive';
   path: string[];
 
@@ -39,15 +32,13 @@ export class WelcomeScreenComponent implements OnInit, AfterViewInit {
   ngOnInit() {
     this.checkLocalStorage();
   }
-  // Запускает анимацию перед редиректом
+
   startAnimation(path: string[]): void {
     console.log('connect' + path);
     this.path = path;
-    this.state = 'inactive';
+    this.redirect();
   }
   redirect(): void {
-    if (this.state === 'inactive') {
-      this.router.navigate(this.path);
-    }
+    this.router.navigate(this.path);
   }
 }

@@ -52,19 +52,20 @@ export class ProjectsComponent implements OnInit {
   save(): void {
     if (this.choosedProject.id === 0) {
       this.projectService.addProject(this.newProject).subscribe(data => {
-        console.log(data);
-        this.getProjects();
+        localStorage.setItem('currentProject', data);
+        this.router.navigate([`/project/`, data]);
       });
     } else {
       console.log('choosed - ' + this.choosedProject.name);
       localStorage.setItem('currentProject', this.choosedProject.id.toString());
-      this.redirect.emit([`/project/`, this.choosedProject.id.toString()]);
+      this.router.navigate([`/project/`, this.choosedProject.id.toString()]);
+      // this.redirect.emit([`/project/`, this.choosedProject.id.toString()]);
     }
   }
   getProjects(): void {
-    /*this.projectService.getAllProjects()
-      .subscribe(projects => this.projects = projects);*/
-    this.projects = [ {name: 'first project', id: 3}, {name: 'second project', id: 2}, {name: 'third project', id: 1}];
+    this.projectService.getAllProjects()
+      .subscribe(projects => this.projects = projects);
+    // this.projects = [ {name: 'first project', id: 3}, {name: 'second project', id: 2}, {name: 'third project', id: 1}];
   }
   choose( project ): void {
     this.choosedProject = project;

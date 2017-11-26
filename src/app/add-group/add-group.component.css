@@ -1,5 +1,6 @@
 h3 {
   cursor: pointer;
+  color: white;
 }
 input {
   background-color: rgba(255, 255, 255, 0.5);
@@ -12,10 +13,6 @@ input {
 input:focus {
   box-shadow: 0 0 15px 3px rgba(255, 255, 255, .5);
 }
-.editing {
-  color: #fff517 !important;
-  border-color: #fff517 !important;
-}
 ::-webkit-input-placeholder {color:white;}
 ::-moz-placeholder          {color:white;}/* Firefox 19+ */
 :-moz-placeholder           {color:white;}/* Firefox 18- */
@@ -26,4 +23,13 @@ input:focus {
   border-radius: 15px;
   padding: 0 10px;
   cursor: pointer;
+}
+.word-block:hover{
+  color: black;
+  background-color: white;
+}
+.editing {
+  color: #fff517 !important;
+  border-color: #fff517 !important;
+  background-color: transparent !important;
 }

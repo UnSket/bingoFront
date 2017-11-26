@@ -1,6 +1,7 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Project} from '../model/Project';
 import {WordGroup} from '../model/Group';
+import {ProjectService} from '../project.service';
 
 @Component({
   selector: 'app-add-group',
@@ -10,16 +11,18 @@ import {WordGroup} from '../model/Group';
 export class AddGroupComponent implements OnInit {
   @Input() project: Project;
   @Input() title: string;
+  @Output() end = new EventEmitter<WordGroup>();
   currentInput: string;
   editId = -1;
 
   @Input() group: WordGroup;
-  constructor() { }
+  constructor( private projectService: ProjectService ) { }
   ngOnInit() {
     if (!this.group) {
-      this.group = {name: '', others: []};
+      this.group = {name: '', others: [], id: 0};
     }
   }
+
   add(): void {
     if (this.editId !== -1) {
       if (this.editId === -2) {
@@ -42,8 +45,25 @@ export class AddGroupComponent implements OnInit {
     this.currentInput = word;
   }
   clear(): void {
-    this.editId = -1;
-    this.currentInput = '';
-    this.group = {name: '', others: []};
+    if (this.group.id === 0) {
+      this.editId = -1;
+      this.currentInput = '';
+      this.group = {name: '', others: [], id: 0};
+    } else {
+      this.projectService.removeGroup(this.group.id).subscribe( data => this.end.emit(null) );
+    }
+  }
+  save(): void {
+    if (this.group.id === 0) {
+      this.projectService.addGroup(this.project.id, this.group).subscribe(data => {
+        console.log(data);
+        this.clear();
+      });
+    } else {
+      this.projectService.updateGroup(this.group).subscribe(data => {
+        console.log(data);
+        this.end.emit(this.group);
+      });
+    }
   }
 }

@@ -1,7 +1,4 @@
-<div class="root-bg">
-  <div class="shadow"
-       [@routeAnimation]="state"
-       (@routeAnimation.done)="redirect()">
+
     <header>
       <app-header title="Bingo creater - v 0.1"></app-header>
     </header>
@@ -9,5 +6,4 @@
       <app-projects
       (redirect)="startAnimation($event)"></app-projects>
     </div>
-  </div>
-</div>
+
