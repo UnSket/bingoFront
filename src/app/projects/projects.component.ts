@@ -53,7 +53,7 @@ export class ProjectsComponent implements OnInit {
     if (this.choosedProject.id === 0) {
       this.projectService.addProject(this.newProject).subscribe(data => {
         localStorage.setItem('currentProject', data);
-        this.router.navigate([`/project/`, data]);
+        this.router.navigate([`/`, data]);
       });
     } else {
       console.log('choosed - ' + this.choosedProject.name);
