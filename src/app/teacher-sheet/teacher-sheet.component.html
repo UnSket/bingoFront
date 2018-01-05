@@ -1,0 +1,22 @@
+<div *ngIf="project && groups" class="listA4">
+  <div class="listContainer">
+    <h1 class="mb-3">{{project.name}}</h1>
+    <div *ngIf="!groups" class="danger">
+      <h2 class="text-danger mb-3">This project have not any groups</h2>
+      <a class="btn btn-secondary" routerLink="/project/{{project.id}}">Back</a>
+    </div>
+    <div class="cell" *ngFor="let group of groups">
+      <div class="mainWordWrapper"><div class="mainWord">{{group.name}}</div></div>
+      <div>{{group.others.join(", ")}}</div>
+    </div>
+  </div>
+</div>
+<div *ngIf="groups2 && project" class="listA4">
+  <div class="listContainer">
+    <h1 class="mb-3">{{project.name}}. Sheet 2</h1>
+    <div class="cell" *ngFor="let group of groups2">
+      <div class="mainWordWrapper"><div class="mainWord">{{group.name}}</div></div>
+      <div>{{group.others.join(", ")}}</div>
+    </div>
+  </div>
+</div>

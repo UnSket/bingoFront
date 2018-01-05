@@ -17,7 +17,7 @@ export const routeAnimation =
         position: 'absolute',
         top: '0',
         left: '0',
-        minWidth: '100%'
+        width: '100%'
       }),
       // animation and styles at end of transition
       animate('1s ease-in', style({

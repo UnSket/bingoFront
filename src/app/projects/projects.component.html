@@ -3,7 +3,7 @@
     <h3>Choose or create project</h3>
   </div>
   <div class="col-12 text-center mt-3">
-    <div ngbDropdown class="d-inline-block">
+    <div ngbDropdown>
       <button class="btn btn-primary dropdown" id="dropdownBasic2" ngbDropdownToggle>{{choosedProject.name}}</button>
       <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
         <button (click)="choose(project)" *ngFor="let project of projects" class="dropdown-item">{{project.id}} - {{project.name}}</button>

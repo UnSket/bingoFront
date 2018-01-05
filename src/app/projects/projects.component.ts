@@ -1,7 +1,7 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {ProjectService} from '../project.service';
 import {Project} from '../model/Project';
-import {ActivatedRoute, Router} from '@angular/router';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-projects',
@@ -53,12 +53,16 @@ export class ProjectsComponent implements OnInit {
     if (this.choosedProject.id === 0) {
       this.projectService.addProject(this.newProject).subscribe(data => {
         localStorage.setItem('currentProject', data);
-        this.router.navigate([`/`, data]);
+        this.router.navigate([`/project/`, data]).then(()=>{
+          this.router.navigate([`/`]);
+        });
       });
     } else {
       console.log('choosed - ' + this.choosedProject.name);
       localStorage.setItem('currentProject', this.choosedProject.id.toString());
-      this.router.navigate([`/project/`, this.choosedProject.id.toString()]);
+      this.router.navigate([`/project/`, this.choosedProject.id.toString()]).then(()=>{
+        this.router.navigate([`/`]);
+      });
       // this.redirect.emit([`/project/`, this.choosedProject.id.toString()]);
     }
   }

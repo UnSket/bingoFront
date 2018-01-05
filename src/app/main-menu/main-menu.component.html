@@ -9,7 +9,7 @@
             <ngb-tab id="edit">
                 <ng-template ngbTabTitle><b>Add</b></ng-template>
                 <ng-template ngbTabContent>
-                <app-add-group [title]="'Add new group'" [project]="project"></app-add-group>
+                <app-add-group *ngIf="project.id" [title]="'Add new group'" [project]="project"></app-add-group>
               </ng-template>
             </ngb-tab>
           </div>
@@ -25,7 +25,11 @@
             <ngb-tab>
               <ng-template ngbTabTitle><b>Print</b></ng-template>
               <ng-template ngbTabContent>
-                <p>There is nothing yet!</p>
+                <div class="row">
+                  <div class="col-12 text-center">
+                    <a class="btn btn-success" routerLink="/teacherSheet/{{project.id}}" routerLinkActive="active">Teacher sheet -></a>
+                  </div>
+                </div>
               </ng-template>
             </ngb-tab>
           </div>

@@ -14,13 +14,16 @@ export class AddGroupComponent implements OnInit {
   @Output() end = new EventEmitter<WordGroup>();
   currentInput: string;
   editId = -1;
+  currentCount: number;
 
   @Input() group: WordGroup;
   constructor( private projectService: ProjectService ) { }
+
   ngOnInit() {
     if (!this.group) {
       this.group = {name: '', others: [], id: 0};
     }
+    this.projectService.getGroups(this.project.id).subscribe(groups => this.currentCount = groups.length);
   }
 
   add(): void {
@@ -50,13 +53,17 @@ export class AddGroupComponent implements OnInit {
       this.currentInput = '';
       this.group = {name: '', others: [], id: 0};
     } else {
-      this.projectService.removeGroup(this.group.id).subscribe( data => this.end.emit(null) );
+      this.projectService.removeGroup(this.group.id).subscribe( data => {
+        this.end.emit(null);
+        this.currentCount --;
+      } );
     }
   }
   save(): void {
     if (this.group.id === 0) {
       this.projectService.addGroup(this.project.id, this.group).subscribe(data => {
         console.log(data);
+        this.currentCount ++;
         this.clear();
       });
     } else {

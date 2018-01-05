@@ -1,8 +1,10 @@
 /* You can add global styles to this file, and also import other style files */
 @import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
-html, body {
-  height: 100%;
-  overflow: hidden;
+@media screen {
+  html, body {
+    height: 100%;
+    overflow: hidden;
+  }
 }
 .alert:first-child{
   margin-top: 1rem;
@@ -26,4 +28,9 @@ ul.nav > li:first-child a{
   color:white;
   border-radius:  0 0 20px 20px;
   padding: 30px 10px;
+}
+@media print {
+  @page {
+    margin: 0;
+  }
 }

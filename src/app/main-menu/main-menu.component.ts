@@ -13,12 +13,11 @@ import {routeAnimation} from '../animations';
     routeAnimation
   ]
 })
-export class MainMenuComponent implements OnInit, AfterViewChecked {
+export class MainMenuComponent implements OnInit {
   @HostBinding('@routeAnimation') get routeAnimation() {
     return '';
   }
   project: Project = {name: '', id: 0};
-  state = 'inactive';
 
   constructor(
     private route: ActivatedRoute,
@@ -42,8 +41,5 @@ export class MainMenuComponent implements OnInit, AfterViewChecked {
     this.getProject(id);
     // this.project = {name: 'Project name', id: id};
     // this.id = this.route.data
-  }
-  ngAfterViewChecked() {
-    this.state = 'active';
   }
 }

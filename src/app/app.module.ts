@@ -15,6 +15,7 @@ import { MainMenuComponent } from './main-menu/main-menu.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { AddGroupComponent } from './add-group/add-group.component';
 import { EditComponent } from './edit/edit.component';
+import { TeacherSheetComponent } from './teacher-sheet/teacher-sheet.component';
 
 
 @NgModule({
@@ -25,7 +26,8 @@ import { EditComponent } from './edit/edit.component';
     WelcomeScreenComponent,
     MainMenuComponent,
     AddGroupComponent,
-    EditComponent
+    EditComponent,
+    TeacherSheetComponent
   ],
   imports: [
     NgbModule.forRoot(),
