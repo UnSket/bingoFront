@@ -1,8 +1,8 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {WordGroup} from '../model/Group';
-import {ProjectService} from '../project.service';
+import {WordGroup} from '../../model/Group';
+import {ProjectService} from '../../project.service';
 import {NgbModal, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
-import {Project} from '../model/Project';
+import {Project} from '../../model/Project';
 
 @Component({
   selector: 'app-edit',

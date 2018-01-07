@@ -55,6 +55,18 @@ export class ProjectService {
       catchError(this.handleError<WordGroup>('remove group'))
     );
   }
+  addApprenticeSheet (projectId: number) : Observable<string> {
+    return this.http.post<string>(this.projectUrl + `/addApprenticeSheet?projectId=${projectId}`, projectId).pipe(
+      tap(_ => this.log(`added apprentice to project with id=${projectId}`)),
+      catchError(this.handleError<string>('addHero'))
+    );
+  }
+  getApprenticeSheet (projectId: number, sheetId: number): Observable<string[]> {
+    return this.http.get<string[]>(this.projectUrl + `/getApprenticeSheet?projectId=${projectId}&sheetId=${sheetId}`).pipe(
+      tap(next => this.log(`fetched ${sheetId} apprenticeSheet from ${projectId} project`)),
+      catchError(this.handleError<string[]>(`get apprenticeSheet`))
+    );
+  }
   private log(message: string) {
     console.log('ProjectService: ' + message);
   }

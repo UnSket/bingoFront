@@ -9,33 +9,26 @@ import { AppRoutingModule } from './/app-routing.module';
 import { ProjectsComponent } from './projects/projects.component';
 import {ProjectService} from './project.service';
 import {HttpClientModule} from '@angular/common/http';
-import { HeaderComponent } from './header/header.component';
 import { WelcomeScreenComponent } from './welcome-screen/welcome-screen.component';
-import { MainMenuComponent } from './main-menu/main-menu.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import { AddGroupComponent } from './add-group/add-group.component';
-import { EditComponent } from './edit/edit.component';
-import { TeacherSheetComponent } from './teacher-sheet/teacher-sheet.component';
+import { TeacherSheetComponent } from './main-menu/teacher-sheet/teacher-sheet.component';
+import {MainMenuModule} from './main-menu/main-menu.module';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    ProjectsComponent,
-    HeaderComponent,
     WelcomeScreenComponent,
-    MainMenuComponent,
-    AddGroupComponent,
-    EditComponent,
     TeacherSheetComponent
   ],
   imports: [
     NgbModule.forRoot(),
     BrowserModule,
-    AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MainMenuModule,
+    AppRoutingModule
   ],
   providers: [ ProjectService ],
   bootstrap: [AppComponent]

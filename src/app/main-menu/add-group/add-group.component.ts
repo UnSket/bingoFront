@@ -1,7 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {Project} from '../model/Project';
-import {WordGroup} from '../model/Group';
-import {ProjectService} from '../project.service';
+import {Project} from '../../model/Project';
+import {WordGroup} from '../../model/Group';
+import {ProjectService} from '../../project.service';
 
 @Component({
   selector: 'app-add-group',
@@ -12,18 +12,19 @@ export class AddGroupComponent implements OnInit {
   @Input() project: Project;
   @Input() title: string;
   @Output() end = new EventEmitter<WordGroup>();
+  @Input() group: WordGroup;
   currentInput: string;
   editId = -1;
   currentCount: number;
 
-  @Input() group: WordGroup;
+
   constructor( private projectService: ProjectService ) { }
 
   ngOnInit() {
     if (!this.group) {
       this.group = {name: '', others: [], id: 0};
+      this.projectService.getGroups(this.project.id).subscribe(groups => this.currentCount = groups.length);
     }
-    this.projectService.getGroups(this.project.id).subscribe(groups => this.currentCount = groups.length);
   }
 
   add(): void {

@@ -1,0 +1,40 @@
+:host {
+  background: white;
+  height: 100%;
+  display: block;
+  overflow: auto;
+}
+@media print {
+  :host {
+    overflow: hidden;
+    height: unset;
+  }
+}
+h1{
+  text-transform: uppercase;
+}
+h1, .danger{
+  width: 100%;
+  text-align: center;
+}
+.listA4{
+  width: 1122px;
+  height: 792px;
+  border: 1px solid black;
+}
+.listContainer{
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  height: 100%;
+}
+.cell{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 182px;
+  font-size: 16px;
+  border: 1px solid black;
+  text-align: center;
+  padding: 10px;
+}

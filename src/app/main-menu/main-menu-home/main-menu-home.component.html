@@ -1,6 +1,6 @@
 
     <header>
-      <app-header [title]="project.name"></app-header>
+      <h1>{{project.name}}</h1>
     </header>
     <div class="container">
       <ngb-tabset #t = "ngbTabset" type="pills">
@@ -27,8 +27,13 @@
               <ng-template ngbTabContent>
                 <div class="row">
                   <div class="col-12 text-center">
-                    <a class="btn btn-success" routerLink="/teacherSheet/{{project.id}}" routerLinkActive="active">Teacher sheet -></a>
+                    <a class="btn btn-success" routerLink="teacher-sheet" routerLinkActive="active">Teacher sheet -></a>
                   </div>
+                  <!--<div class="col-12 text-center border-top">
+                    <h4>Apprentice sheets</h4>
+                    <button class="btn btn-secondary" (click)="addApprenticeSheet()"> add </button>
+                    <a class="btn btn-success" routerLink="apprentice-sheet/1" routerLinkActive="active">Look</a>
+                  </div>-->
                 </div>
               </ng-template>
             </ngb-tab>

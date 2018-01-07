@@ -1,0 +1,17 @@
+:host{
+  display: block;
+}
+app-projects >>> .block {
+  background-color: transparent;
+  box-shadow: none;
+}
+.border-top{
+  border-top: 1px solid black;
+  margin-top: 30px;
+  padding-top: 15px;
+}
+h1{
+  text-align: center;
+  color: white;
+  text-transform: uppercase;
+}
