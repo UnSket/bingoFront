@@ -1,13 +1,14 @@
-<div *ngIf="project && words" class="listA4">
-  <div class="listContainer">
+<div *ngFor="let sheet of sheets" class="listA4">
+  <div *ngIf="project" class="listContainer">
     <h1 class="mb-3">{{project.name}}</h1>
-    <div *ngIf="!words" class="danger">
+    <div *ngIf="!sheet" class="danger">
       <h2 class="text-danger mb-3">Wrong url</h2>
       <a class="btn btn-secondary" routerLink="/project/{{project.id}}">Back</a>
     </div>
-    <div class="cell" style="width: 0{{(4480 / (words.length)) + 'px'}};" *ngFor="let word of words">
-      {{word}}
-      style="width: {{(4480 / (words.length))}}px;"
+    <div class="myRow" *ngFor="let words1 of sheet">
+      <div class="cell" *ngFor="let word of words1">
+        <p>{{word}}</p>
+      </div>
     </div>
   </div>
 </div>

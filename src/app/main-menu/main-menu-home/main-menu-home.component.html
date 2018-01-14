@@ -27,13 +27,25 @@
               <ng-template ngbTabContent>
                 <div class="row">
                   <div class="col-12 text-center">
-                    <a class="btn btn-success" routerLink="teacher-sheet" routerLinkActive="active">Teacher sheet -></a>
+                    <a class="btn btn-success" routerLink="teacher-sheet" routerLinkActive="active">Teacher sheet <i class="fa fa-caret-right" aria-hidden="true"></i></a>
                   </div>
-                  <!--<div class="col-12 text-center border-top">
+                  <div class="col-12 text-center border-top">
                     <h4>Apprentice sheets</h4>
-                    <button class="btn btn-secondary" (click)="addApprenticeSheet()"> add </button>
-                    <a class="btn btn-success" routerLink="apprentice-sheet/1" routerLinkActive="active">Look</a>
-                  </div>-->
+                  </div>
+                  <div class="col-12 text-center mt-3">
+                    <input class="mr-2" [(ngModel)]="apprenticeSheetAddCount" placeholder="Input apprentice sheets count" type="number" min="0" max="{{50 - apprenticeSheetLook.length}}" (keyup)="validate()"/>
+                    <button class="btn btn-secondary" (click)="addApprenticeSheet()"> Add </button>
+                  </div>
+                  <div class="col-12 text-center mt-3">
+                    <div *ngIf="apprenticeSheetLook" class="d-inline-block mr-2" ngbDropdown>
+                      <button class="btn btn-primary dropdown" id="dropdownBasic2" ngbDropdownToggle>{{apprenticeSheetLookCurrent.name}}</button>
+                      <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                        <button (click)="changeCurrent('All', -1)" class="dropdown-item">All</button>
+                        <button *ngFor="let num of apprenticeSheetLook; let i = index" (click)="changeCurrent(i + 1, num)" class="dropdown-item">{{i + 1}}</button>
+                      </div>
+                    </div>
+                    <a class="btn btn-success" (click)="lookApprenticeSheen()">Look</a>
+                  </div>
                 </div>
               </ng-template>
             </ngb-tab>

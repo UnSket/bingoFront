@@ -15,3 +15,21 @@ h1{
   color: white;
   text-transform: uppercase;
 }
+input[type=number]{
+  width: 260px;
+  padding: 5px 15px;
+  border-radius: 20px;
+  background-color: transparent;
+  border: 1px solid white;
+  outline: none;
+  color: white;
+  max-width: 100%;
+  box-shadow: none;
+}
+input[type=number]:focus{
+  box-shadow: 0 0 15px 5px white;
+}
+input[type=number]::-webkit-input-placeholder {color: rgb(182, 182, 182);}
+input[type=number]::-moz-placeholder          {color:rgb(182, 182, 182);}/* Firefox 19+ */
+input[type=number]:-moz-placeholder           {color:rgb(182, 182, 182);}/* Firefox 18- */
+input[type=number]:-ms-input-placeholder      {color:rgb(182, 182, 182);}

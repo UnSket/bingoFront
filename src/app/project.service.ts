@@ -55,16 +55,22 @@ export class ProjectService {
       catchError(this.handleError<WordGroup>('remove group'))
     );
   }
-  addApprenticeSheet (projectId: number) : Observable<string> {
-    return this.http.post<string>(this.projectUrl + `/addApprenticeSheet?projectId=${projectId}`, projectId).pipe(
+  addApprenticeSheet (projectId: number, count: number): Observable<number[]> {
+    return this.http.post<number[]>(this.projectUrl + `/addApprenticeSheet?projectId=${projectId}&count=${count}`, projectId).pipe(
       tap(_ => this.log(`added apprentice to project with id=${projectId}`)),
-      catchError(this.handleError<string>('addHero'))
+      catchError(this.handleError<number[]>('addHero'))
     );
   }
-  getApprenticeSheet (projectId: number, sheetId: number): Observable<string[]> {
-    return this.http.get<string[]>(this.projectUrl + `/getApprenticeSheet?projectId=${projectId}&sheetId=${sheetId}`).pipe(
+  getApprenticeSheet (projectId: number, sheetId: number): Observable<string[][]> {
+    return this.http.get<string[][]>(this.projectUrl + `/getApprenticeSheet?projectId=${projectId}&sheetId=${sheetId}`).pipe(
       tap(next => this.log(`fetched ${sheetId} apprenticeSheet from ${projectId} project`)),
-      catchError(this.handleError<string[]>(`get apprenticeSheet`))
+      catchError(this.handleError<string[][]>(`get apprenticeSheet`))
+    );
+  }
+  getApprenticeSheetCount(projectId): Observable<number[]>{
+    return this.http.get<number[]>(this.projectUrl + `/getApprenticeSheetCount?projectId=${projectId}`).pipe(
+      tap(next => this.log(`fetched apprenticeSheetCount for ${projectId} project`)),
+      catchError(this.handleError<number[]>(`get apprentice sheet count`))
     );
   }
   private log(message: string) {

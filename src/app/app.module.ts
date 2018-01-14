@@ -13,6 +13,7 @@ import { WelcomeScreenComponent } from './welcome-screen/welcome-screen.componen
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { TeacherSheetComponent } from './main-menu/teacher-sheet/teacher-sheet.component';
 import {MainMenuModule} from './main-menu/main-menu.module';
+import {AngularFontAwesomeModule} from "angular-font-awesome";
 
 
 @NgModule({
@@ -28,7 +29,8 @@ import {MainMenuModule} from './main-menu/main-menu.module';
     HttpClientModule,
     BrowserAnimationsModule,
     MainMenuModule,
-    AppRoutingModule
+    AppRoutingModule,
+    AngularFontAwesomeModule
   ],
   providers: [ ProjectService ],
   bootstrap: [AppComponent]
