@@ -4,6 +4,7 @@ import {ProjectService} from '../../project.service';
 import {Project} from '../../model/Project';
 import {routeAnimation} from '../../animations';
 import {validate} from 'codelyzer/walkerFactory/walkerFn';
+import {ApprenticeSheetService} from "../../apprentice-sheet.service";
 
 @Component({
   selector: 'app-main-menu-home',
@@ -25,14 +26,15 @@ export class MainMenuHomeComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private projectService: ProjectService
+    private projectService: ProjectService,
+    private apprenticeSheetService: ApprenticeSheetService
   ) { }
   getProject( id: number ): void {
     this.projectService.getProject(id)
       .subscribe(project => this.project = project);
   }
   getApprenticeSheetLook( id: number ): void {
-    this.projectService.getApprenticeSheetCount(id).subscribe( ids => {
+    this.apprenticeSheetService.getApprenticeSheetCount(id).subscribe( ids => {
       this.apprenticeSheetLook = ids;
     });
   }
@@ -57,7 +59,7 @@ export class MainMenuHomeComponent implements OnInit {
   }
   addApprenticeSheet(): void {
     this.validate();
-    this.projectService.addApprenticeSheet(this.project.id, this.apprenticeSheetAddCount).subscribe(data => {
+    this.apprenticeSheetService.addApprenticeSheet(this.project.id, this.apprenticeSheetAddCount).subscribe(data => {
       for (const id of data) {
         this.apprenticeSheetLook.push(id);
       }

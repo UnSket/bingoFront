@@ -1,4 +1,4 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {ProjectService} from '../project.service';
 import {Project} from '../model/Project';
 import {Router} from '@angular/router';
@@ -10,32 +10,38 @@ import {Router} from '@angular/router';
 })
 export class ProjectsComponent implements OnInit {
   newProject: string;
+  copyName: string;
+  @Input() project: Project;
   projects: Array<Project>;
-  choosedProject: Project = {name: 'Choose', id: -1};
+  choosedProject: Project = {name: 'Choose', id: -2};
   alerts: Array<string> = [];
+  copyAlerts: Array<string> = [];
   isDisabled = true;
+  isCopyDisabled = true;
   @Output() redirect = new EventEmitter<string[]>();
 
-  validate(): void {
-    this.isDisabled = false;
-    this.removeAlert('Project with same name already exist');
-    this.removeAlert('Field shouldn\'t be empty');
-    switch (this.choosedProject.id) {
-      case -1: this.isDisabled = true; break;
-      case 0: if (this.newProject) {
-        const self = this;
-        this.projects.forEach(function(current) {
-          if (current.name.localeCompare(self.newProject.trim()) === 0) {
-            self.isDisabled = true;
-            self.addAlert('Project with same name already exist');
-          }
-        });
-      } else {
-        this.addAlert('Field shouldn\'t be empty');
-        this.isDisabled = true;
-      }
-      break;
-      default: this.isDisabled = false;
+  validate(block: string, projectName: string): void {
+    let isDisabled = false;
+    const alerts: Array<string> = [];
+    if (projectName) {
+      const self = this;
+      this.projects.forEach(function(current) {
+        if (current.name.localeCompare(projectName.trim()) === 0) {
+          isDisabled = true;
+          alerts.push('Project with same name already exist');
+        }
+      });
+    } else {
+      alerts.push('Field shouldn\'t be empty');
+      isDisabled = true;
+    }
+    switch (block) {
+      case 'new': this.isDisabled = isDisabled;
+        this.alerts = alerts;
+        break;
+      case 'copy': this.isCopyDisabled = isDisabled;
+        this.copyAlerts = alerts;
+        break;
     }
   }
   addAlert(message: string): void {
@@ -43,28 +49,25 @@ export class ProjectsComponent implements OnInit {
       this.alerts.push(message);
     }
   }
-  removeAlert(message: string): void {
-    const index: number = this.alerts.indexOf(message);
-    if (index !== -1) {
-      this.alerts.splice(index, 1);
-    }
-  }
   save(): void {
     if (this.choosedProject.id === 0) {
       this.projectService.addProject(this.newProject).subscribe(data => {
         localStorage.setItem('currentProject', data);
-        this.router.navigate([`/project/`, data]).then(()=>{
+        this.router.navigate([`/project/`, data]).then(() => {
           this.router.navigate([`/`]);
         });
       });
     } else {
       console.log('choosed - ' + this.choosedProject.name);
       localStorage.setItem('currentProject', this.choosedProject.id.toString());
-      this.router.navigate([`/project/`, this.choosedProject.id.toString()]).then(()=>{
+      this.router.navigate([`/project/`, this.choosedProject.id.toString()]).then(() => {
         this.router.navigate([`/`]);
       });
       // this.redirect.emit([`/project/`, this.choosedProject.id.toString()]);
     }
+  }
+  copy(): void {
+    this.projectService.copyProject(this.project.id, this.copyName).subscribe(project => this.projects.push(project));
   }
   getProjects(): void {
     this.projectService.getAllProjects()
@@ -73,8 +76,10 @@ export class ProjectsComponent implements OnInit {
   }
   choose( project ): void {
     this.choosedProject = project;
-    if (project.id !== 0) {
-      this.validate();
+    if (this.choosedProject.id === -1) {
+      this.isDisabled = true;
+    } else {
+      this.isDisabled = false;
     }
   }
   constructor(

@@ -14,6 +14,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { TeacherSheetComponent } from './main-menu/teacher-sheet/teacher-sheet.component';
 import {MainMenuModule} from './main-menu/main-menu.module';
 import {AngularFontAwesomeModule} from "angular-font-awesome";
+import {ApprenticeSheetService} from "./apprentice-sheet.service";
 
 
 @NgModule({
@@ -32,7 +33,7 @@ import {AngularFontAwesomeModule} from "angular-font-awesome";
     AppRoutingModule,
     AngularFontAwesomeModule
   ],
-  providers: [ ProjectService ],
+  providers: [ ProjectService, ApprenticeSheetService ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

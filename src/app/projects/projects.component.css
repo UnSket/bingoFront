@@ -21,7 +21,7 @@
 h3{
   color: white;
 }
-input.newProject{
+input[type=text]{
   width: 205px;
   padding: 5px 15px;
   border-radius: 20px;
@@ -30,7 +30,7 @@ input.newProject{
   outline: none;
   color: white;
 }
-input.newProject:focus{
+input[type=text]:focus{
   box-shadow: 0 0 15px 5px white;
 }
 ::-webkit-input-placeholder {color:white;}

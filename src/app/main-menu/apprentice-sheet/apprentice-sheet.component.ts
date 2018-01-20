@@ -1,8 +1,9 @@
-import {Component, HostBinding, OnInit} from '@angular/core';
+import {Component, HostBinding, Input, OnInit} from '@angular/core';
 import {routeAnimation} from '../../animations';
 import {ProjectService} from '../../project.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Project} from '../../model/Project';
+import {ApprenticeSheetService} from "../../apprentice-sheet.service";
 
 @Component({
   selector: 'app-apprentice-sheet',
@@ -16,12 +17,13 @@ export class ApprenticeSheetComponent implements OnInit {
   @HostBinding('@routeAnimation') get routeAnimation() {
     return '';
   }
-  project: Project;
+  @Input() project: Project;
   rows: number;
   sheets = [];
 
   constructor(
     private projectService: ProjectService,
+    private appreticeSheetService: ApprenticeSheetService,
     private route: ActivatedRoute,
     ) { }
 
@@ -29,7 +31,7 @@ export class ApprenticeSheetComponent implements OnInit {
     const projectId = +this.route.snapshot.paramMap.get('id');
     const sheetId = +this.route.snapshot.paramMap.get('sheetId');
     console.log(sheetId);
-    this.projectService.getApprenticeSheet(projectId, sheetId).subscribe( sheets => {
+    this.appreticeSheetService.getApprenticeSheet(projectId, sheetId).subscribe( sheets => {
       for (const words of sheets) {
         if (words.length > 0) {
           const newWords = [];

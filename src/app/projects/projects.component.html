@@ -7,15 +7,25 @@
       <button class="btn btn-primary dropdown" id="dropdownBasic2" ngbDropdownToggle>{{choosedProject.name}}</button>
       <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
         <button (click)="choose(project)" *ngFor="let project of projects" class="dropdown-item">{{project.id}} - {{project.name}}</button>
-        <button (click)="choose({ name: 'New project', id: 0})" class="dropdown-item">New project</button>
+        <button (click)="choose({ name: 'New project', id: -1})" class="dropdown-item">New project</button>
       </div>
     </div>
   </div>
-  <div *ngIf="choosedProject.id === 0" class="col-12 text-center mt-3">
-    <input class="md-3 newProject" [(ngModel)]="newProject" placeholder="Input new project name" (keyup)="validate()"/>
+  <div *ngIf="choosedProject.id === -1" class="col-12 text-center mt-3">
+    <input type="text" class="md-3 newProject" [(ngModel)]="newProject" placeholder="Input new project name" (keyup)="validate('new', $event.target.value)"/>
     <ngb-alert *ngFor="let alert of alerts" [dismissible]="false" type="danger">{{ alert }}</ngb-alert>
   </div>
   <div class="col-12 text-center mt-3">
     <input class="btn btn-success" type="button" (click)="save()" value="Commit" [disabled]="isDisabled">
   </div>
+</div>
+<div *ngIf="this.project" class="block border-top">
+ <div class="col-12 text-center">
+   <h3 class="mb-3">Copy project</h3>
+   <input (keyup)="validate('copy', $event.target.value)" [(ngModel)]="copyName" type="text" placeholder="Input new project name">
+   <ngb-alert *ngFor="let alert of copyAlerts" [dismissible]="false" type="danger">{{ alert }}</ngb-alert>
+ </div>
+ <div class="col-12 text-center mt-3">
+   <button class="btn btn-primary" [disabled]="isCopyDisabled" (click)="copy()">Copy</button>
+ </div>
 </div>

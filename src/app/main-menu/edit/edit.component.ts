@@ -28,7 +28,6 @@ export class EditComponent implements OnInit {
   getGroups() {
     this.projectService.getGroups(this.project.id).subscribe( next => {
       this.groups = next;
-      console.log(this.groups);
     });
     // this.groups = [{ name: 'good', others: ['nice', 'light', 'kind'] }, { name: 'bad', others: ['evil', 'dirty', 'another'] }];
   }

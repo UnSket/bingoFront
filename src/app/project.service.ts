@@ -31,6 +31,12 @@ export class ProjectService {
       catchError(this.handleError<string>('addHero'))
     );
   }
+  copyProject (oldProjectId: number, newProjectName: string): Observable<Project> {
+    return this.http.post<Project>(this.projectUrl + `/copyProject?oldProjectId=${oldProjectId}&newProjectName=${newProjectName}`, null).pipe(
+      tap(project => this.log(`copy project id=${project.id}`)),
+      catchError(this.handleError<Project>('copyProject'))
+    );
+  }
   getGroups(id: number) {
     return this.http.get<WordGroup[]>(this.projectUrl + `/getGroups?id=${id}` ).pipe(
       tap(next => this.log(`fetched all groups`)),
@@ -53,24 +59,6 @@ export class ProjectService {
     return this.http.put<WordGroup>(this.projectUrl + `/updateGroup`, group).pipe(
       tap(_ => this.log(`update group ${group.id}`)),
       catchError(this.handleError<WordGroup>('remove group'))
-    );
-  }
-  addApprenticeSheet (projectId: number, count: number): Observable<number[]> {
-    return this.http.post<number[]>(this.projectUrl + `/addApprenticeSheet?projectId=${projectId}&count=${count}`, projectId).pipe(
-      tap(_ => this.log(`added apprentice to project with id=${projectId}`)),
-      catchError(this.handleError<number[]>('addHero'))
-    );
-  }
-  getApprenticeSheet (projectId: number, sheetId: number): Observable<string[][]> {
-    return this.http.get<string[][]>(this.projectUrl + `/getApprenticeSheet?projectId=${projectId}&sheetId=${sheetId}`).pipe(
-      tap(next => this.log(`fetched ${sheetId} apprenticeSheet from ${projectId} project`)),
-      catchError(this.handleError<string[][]>(`get apprenticeSheet`))
-    );
-  }
-  getApprenticeSheetCount(projectId): Observable<number[]>{
-    return this.http.get<number[]>(this.projectUrl + `/getApprenticeSheetCount?projectId=${projectId}`).pipe(
-      tap(next => this.log(`fetched apprenticeSheetCount for ${projectId} project`)),
-      catchError(this.handleError<number[]>(`get apprentice sheet count`))
     );
   }
   private log(message: string) {

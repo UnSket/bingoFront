@@ -26,7 +26,7 @@
               <ng-template ngbTabTitle><b>Print</b></ng-template>
               <ng-template ngbTabContent>
                 <div class="row">
-                  <div class="col-12 text-center">
+                  <div class="col-12 text-center mb-3">
                     <a class="btn btn-success" routerLink="teacher-sheet" routerLinkActive="active">Teacher sheet <i class="fa fa-caret-right" aria-hidden="true"></i></a>
                   </div>
                   <div class="col-12 text-center border-top">
@@ -54,7 +54,7 @@
             <ngb-tab>
               <ng-template ngbTabTitle><b>Change project</b></ng-template>
               <ng-template ngbTabContent>
-                <app-projects></app-projects>
+                <app-projects [project]="this.project"></app-projects>
               </ng-template>
             </ngb-tab>
           </div>
