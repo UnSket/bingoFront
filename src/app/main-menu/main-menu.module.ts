@@ -7,7 +7,7 @@ import {ProjectRoutingModule} from './project-routing.module';
 import {HttpClientModule} from '@angular/common/http';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {FormsModule} from '@angular/forms';
-import {ProjectService} from '../project.service';
+import {ProjectService} from '../services/project.service';
 import {MainMenuComponent} from './main-menu.component';
 import {MainMenuHomeComponent} from './main-menu-home/main-menu-home.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
@@ -30,7 +30,6 @@ import {ProjectsComponent} from '../projects/projects.component';
     ApprenticeSheetComponent,
     ProjectsComponent
   ],
-  exports: [ProjectsComponent],
-  providers: [ ProjectService ]
+  exports: [ProjectsComponent]
 })
 export class MainMenuModule { }

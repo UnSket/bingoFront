@@ -1,8 +1,9 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {WordGroup} from '../../model/Group';
-import {ProjectService} from '../../project.service';
+import {ProjectService} from '../../services/project.service';
 import {NgbModal, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
 import {Project} from '../../model/Project';
+import {GroupService} from "../../services/group.service";
 
 @Component({
   selector: 'app-edit',
@@ -15,18 +16,21 @@ export class EditComponent implements OnInit {
   currentGroup: WordGroup;
   modal: NgbModalRef;
 
+  constructor( private projectService: ProjectService,
+               private groupService: GroupService,
+               private modalService: NgbModal) { }
+
+  ngOnInit() {
+    this.getGroups();
+  }
+
   edit(modal, id: number): void {
     this.currentGroup = this.groups[id];
     this.modal = this.modalService.open(modal, { windowClass: 'my-modal'});
   }
 
-  constructor( private projectService: ProjectService, private modalService: NgbModal) { }
-
-  ngOnInit() {
-    this.getGroups();
-  }
   getGroups() {
-    this.projectService.getGroups(this.project.id).subscribe( next => {
+    this.groupService.getGroups(this.project.id).subscribe( next => {
       this.groups = next;
     });
     // this.groups = [{ name: 'good', others: ['nice', 'light', 'kind'] }, { name: 'bad', others: ['evil', 'dirty', 'another'] }];

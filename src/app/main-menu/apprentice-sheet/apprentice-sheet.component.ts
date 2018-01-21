@@ -1,9 +1,9 @@
 import {Component, HostBinding, Input, OnInit} from '@angular/core';
 import {routeAnimation} from '../../animations';
-import {ProjectService} from '../../project.service';
+import {ProjectService} from '../../services/project.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Project} from '../../model/Project';
-import {ApprenticeSheetService} from "../../apprentice-sheet.service";
+import {ApprenticeSheetService} from "../../services/apprentice-sheet.service";
 
 @Component({
   selector: 'app-apprentice-sheet',

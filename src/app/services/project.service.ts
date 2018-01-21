@@ -3,15 +3,17 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs/Observable';
 import {catchError, tap} from 'rxjs/operators';
 import {of} from 'rxjs/observable/of';
-import {Project} from './model/Project';
-import {WordGroup} from './model/Group';
-const httpOptions = {
-  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-};
+import {Project} from '../model/Project';
+import {WordGroup} from '../model/Group';
 
 @Injectable()
 export class ProjectService {
   private projectUrl = `api/projects`;  // URL to web api
+
+  constructor(
+    private http: HttpClient
+  ) { }
+
   getAllProjects(): Observable<Project[]> {
     const url = `${this.projectUrl}/getAll`;
     return this.http.get<Project[]>(url).pipe(
@@ -37,28 +39,10 @@ export class ProjectService {
       catchError(this.handleError<Project>('copyProject'))
     );
   }
-  getGroups(id: number) {
-    return this.http.get<WordGroup[]>(this.projectUrl + `/getGroups?id=${id}` ).pipe(
-      tap(next => this.log(`fetched all groups`)),
-      catchError(this.handleError<WordGroup[]>(`get all project`))
-    );
-  }
-  addGroup (id: number, group: WordGroup): Observable<WordGroup> {
-    return this.http.post<WordGroup>(this.projectUrl + `/addGroup?id=${id}`, { name: group.name, others: group.others }).pipe(
-      tap(_ => this.log(`added group id=${group.name}`)),
-      catchError(this.handleError<WordGroup>('addGroup'))
-    );
-  }
-  removeGroup (id: number): Observable<WordGroup> {
-    return this.http.delete<WordGroup>(this.projectUrl + `/removeGroup?id=${id}`).pipe(
-      tap(_ => this.log(`remove group ${id}`)),
-      catchError(this.handleError<WordGroup>('remove group'))
-    );
-  }
-  updateGroup (group: WordGroup): Observable<WordGroup> {
-    return this.http.put<WordGroup>(this.projectUrl + `/updateGroup`, group).pipe(
-      tap(_ => this.log(`update group ${group.id}`)),
-      catchError(this.handleError<WordGroup>('remove group'))
+  deleteProject(projectId: number): Observable<string> {
+    return this.http.delete<string>(this.projectUrl + `/delete-project?id=${projectId}`).pipe(
+      tap(_ => this.log(`delete project with id=${projectId}`)),
+      catchError(this.handleError<string>('deleteProject'))
     );
   }
   private log(message: string) {
@@ -71,8 +55,5 @@ export class ProjectService {
       return of(result as T);
     };
   }
-  constructor(
-    private http: HttpClient
-  ) { }
 
 }

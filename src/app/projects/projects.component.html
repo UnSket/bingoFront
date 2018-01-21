@@ -29,3 +29,20 @@
    <button class="btn btn-primary" [disabled]="isCopyDisabled" (click)="copy()">Copy</button>
  </div>
 </div>
+ <div *ngIf="this.project" class="block border-top">
+   <div class="col-12 text-center mt-3">
+     <button class="btn btn-danger" (click)="open(editModal)">Delete project</button>
+   </div>
+ </div>
+ <ng-template #editModal let-c="close" let-d="dismiss">
+   <div class="modal-header">
+     <h4 class="modal-title">Are you sure you want to delete the project "{{project.name}}"?</h4>
+     <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+       <span aria-hidden="true">&times;</span>
+     </button>
+   </div>
+   <div class="modal-body">
+     <button class="btn btn-outline-danger mr-2" (click)="deleteProject()">Delete</button>
+     <button type="button" class="btn btn-outline-dark" (click)="c('Close click')">Close</button>
+   </div>
+ </ng-template>

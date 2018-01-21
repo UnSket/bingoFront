@@ -1,7 +1,8 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {ProjectService} from '../project.service';
+import {ProjectService} from '../services/project.service';
 import {Project} from '../model/Project';
 import {Router} from '@angular/router';
+import {NgbActiveModal, NgbModal, NgbModalRef} from "@ng-bootstrap/ng-bootstrap";
 
 @Component({
   selector: 'app-projects',
@@ -18,13 +19,22 @@ export class ProjectsComponent implements OnInit {
   copyAlerts: Array<string> = [];
   isDisabled = true;
   isCopyDisabled = true;
+  modal: NgbModalRef;
   @Output() redirect = new EventEmitter<string[]>();
+
+  constructor(
+    private projectService: ProjectService,
+    private router: Router,
+    private modalService: NgbModal
+  ) { }
+  ngOnInit() {
+    this.getProjects();
+  }
 
   validate(block: string, projectName: string): void {
     let isDisabled = false;
     const alerts: Array<string> = [];
     if (projectName) {
-      const self = this;
       this.projects.forEach(function(current) {
         if (current.name.localeCompare(projectName.trim()) === 0) {
           isDisabled = true;
@@ -42,11 +52,6 @@ export class ProjectsComponent implements OnInit {
       case 'copy': this.isCopyDisabled = isDisabled;
         this.copyAlerts = alerts;
         break;
-    }
-  }
-  addAlert(message: string): void {
-    if (this.alerts.indexOf(message) === -1) {
-      this.alerts.push(message);
     }
   }
   save(): void {
@@ -67,7 +72,11 @@ export class ProjectsComponent implements OnInit {
     }
   }
   copy(): void {
-    this.projectService.copyProject(this.project.id, this.copyName).subscribe(project => this.projects.push(project));
+    this.projectService.copyProject(this.project.id, this.copyName).subscribe(project => {
+      // TODO: fix navigate links;
+      localStorage.setItem('currentProject', project.id + '');
+      this.router.navigate([`/`]);
+    });
   }
   getProjects(): void {
     this.projectService.getAllProjects()
@@ -82,11 +91,14 @@ export class ProjectsComponent implements OnInit {
       this.isDisabled = false;
     }
   }
-  constructor(
-    private projectService: ProjectService,
-    private router: Router
-  ) { }
-  ngOnInit() {
-    this.getProjects();
+  deleteProject(): void {
+    this.projectService.deleteProject(this.project.id).subscribe( _ => {
+      localStorage.removeItem('currentProject');
+      this.modal.close();
+      this.router.navigate(['/']);
+    });
+  }
+  open(content) {
+    this.modal = this.modalService.open(content);
   }
 }

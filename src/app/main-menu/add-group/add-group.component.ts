@@ -1,7 +1,8 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Project} from '../../model/Project';
 import {WordGroup} from '../../model/Group';
-import {ProjectService} from '../../project.service';
+import {ProjectService} from '../../services/project.service';
+import {GroupService} from "../../services/group.service";
 
 @Component({
   selector: 'app-add-group',
@@ -18,12 +19,13 @@ export class AddGroupComponent implements OnInit {
   currentCount: number;
 
 
-  constructor( private projectService: ProjectService ) { }
+  constructor( private projectService: ProjectService,
+               private groupService: GroupService) { }
 
   ngOnInit() {
     if (!this.group) {
       this.group = {name: '', others: [], id: 0};
-      this.projectService.getGroups(this.project.id).subscribe(groups => this.currentCount = groups.length);
+      this.groupService.getGroups(this.project.id).subscribe(groups => this.currentCount = groups.length);
     }
   }
 
@@ -54,7 +56,7 @@ export class AddGroupComponent implements OnInit {
       this.currentInput = '';
       this.group = {name: '', others: [], id: 0};
     } else {
-      this.projectService.removeGroup(this.group.id).subscribe( data => {
+      this.groupService.removeGroup(this.group.id).subscribe( data => {
         this.end.emit(null);
         this.currentCount --;
       } );
@@ -62,13 +64,13 @@ export class AddGroupComponent implements OnInit {
   }
   save(): void {
     if (this.group.id === 0) {
-      this.projectService.addGroup(this.project.id, this.group).subscribe(data => {
+      this.groupService.addGroup(this.project.id, this.group).subscribe(data => {
         console.log(data);
         this.currentCount ++;
         this.clear();
       });
     } else {
-      this.projectService.updateGroup(this.group).subscribe(data => {
+      this.groupService.updateGroup(this.group).subscribe(data => {
         console.log(data);
         this.end.emit(this.group);
       });

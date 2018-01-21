@@ -1,10 +1,10 @@
 import {Component, HostBinding, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import {ProjectService} from '../../project.service';
+import {ProjectService} from '../../services/project.service';
 import {Project} from '../../model/Project';
 import {routeAnimation} from '../../animations';
 import {validate} from 'codelyzer/walkerFactory/walkerFn';
-import {ApprenticeSheetService} from "../../apprentice-sheet.service";
+import {ApprenticeSheetService} from "../../services/apprentice-sheet.service";
 
 @Component({
   selector: 'app-main-menu-home',
