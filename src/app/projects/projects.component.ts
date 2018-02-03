@@ -58,24 +58,19 @@ export class ProjectsComponent implements OnInit {
     if (this.choosedProject.id === 0) {
       this.projectService.addProject(this.newProject).subscribe(data => {
         localStorage.setItem('currentProject', data);
-        this.router.navigate([`/project/`, data]).then(() => {
-          this.router.navigate([`/`]);
-        });
+        this.router.navigate([`/project/`, data]);
       });
     } else {
       console.log('choosed - ' + this.choosedProject.name);
       localStorage.setItem('currentProject', this.choosedProject.id.toString());
-      this.router.navigate([`/project/`, this.choosedProject.id.toString()]).then(() => {
-        this.router.navigate([`/`]);
-      });
+      this.router.navigate([`/project/`, this.choosedProject.id.toString()]);
       // this.redirect.emit([`/project/`, this.choosedProject.id.toString()]);
     }
   }
   copy(): void {
     this.projectService.copyProject(this.project.id, this.copyName).subscribe(project => {
-      // TODO: fix navigate links;
       localStorage.setItem('currentProject', project.id + '');
-      this.router.navigate([`/`]);
+      this.router.navigate([`/project/${project.id}`]);
     });
   }
   getProjects(): void {

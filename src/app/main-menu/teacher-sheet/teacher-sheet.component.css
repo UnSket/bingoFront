@@ -63,3 +63,7 @@ h1, .danger{
     display: none;
   }
 }
+@page {
+  size: landscape;
+  margin: 0
+}

@@ -1,3 +1,6 @@
+<div [class.visible]="!apprentice || !group || !project || apprentice.spinner || group.spinner || project.spinner" class="load-wrapper">
+  <img src="../assets/images/loading.gif" />
+</div>
 <div class="root-bg">
 <router-outlet></router-outlet>
 </div>

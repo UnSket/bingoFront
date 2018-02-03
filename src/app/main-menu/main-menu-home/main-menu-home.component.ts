@@ -47,9 +47,11 @@ export class MainMenuHomeComponent implements OnInit {
   }
   ngOnInit() {
     this.checkLocalStorage();
-    const id = +this.route.snapshot.paramMap.get('id');
-    this.getProject(id);
-    this.getApprenticeSheetLook(id);
+    this.route.paramMap.subscribe(next => {
+      const id = +next.get('id');
+      this.getProject(id);
+      this.getApprenticeSheetLook(id);
+    });
     // this.project = {name: 'Project name', id: id};
     // this.id = this.route.data
   }
@@ -69,7 +71,7 @@ export class MainMenuHomeComponent implements OnInit {
     this.apprenticeSheetLookCurrent.value = newValue;
     this.apprenticeSheetLookCurrent.name = newString;
   }
-  lookApprenticeSheen(): void {
+  lookApprenticeSheet(): void {
     this.router.navigate(['/project/' + this.project.id + '/apprentice-sheet/' + this.apprenticeSheetLookCurrent.value]);
   }
 }

@@ -1,4 +1,4 @@
-<div *ngFor="let sheet of sheets" class="listA4">
+<div *ngFor="let sheet of words; let pageNum = index" class="listA4">
   <div *ngIf="project" class="listContainer">
     <h1 class="mb-3">{{project.name}}</h1>
     <div *ngIf="!sheet" class="danger">
@@ -7,9 +7,16 @@
     </div>
     <div class="myRow" *ngFor="let words1 of sheet">
       <div class="cell" *ngFor="let word of words1">
-        <p>{{word}}</p>
+        <a (click)="changeWord(word.key, pageNum)"><i class="fa fa-refresh" aria-hidden="true"></i></a>
+        <p>{{word.value}}</p>
       </div>
     </div>
   </div>
 </div>
-<a *ngIf="sheets.length > 0 && project" class="btn btn-secondary ghost-btn" routerLink="/project/{{project.id}}"><i class="fa fa-arrow-left" aria-hidden="true"></i></a>
+<a *ngIf="words.length > 0 && project" class="btn btn-secondary ghost-btn" routerLink="/project/{{project.id}}"><i class="fa fa-arrow-left" aria-hidden="true"></i></a>
+<div *ngIf="page && page.id != -1" class="btn-wrapper mt-2">
+  <div class="d-inline-block" *ngIf="apprenticeSheetsIds && page && apprenticeSheetsIds.length > 1">
+    <ngb-pagination [collectionSize]="apprenticeSheetsIds.length * 10" [(page)]="page.num" [maxSize]="5" [rotate]="true" [boundaryLinks]="false" (pageChange)="pageChange()"></ngb-pagination>
+  </div>
+  <button (click)="delete()" class="btn btn-danger">Delete <i class="fa fa-trash"></i></button>
+</div>

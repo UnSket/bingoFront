@@ -58,8 +58,31 @@ h1, .danger{
 .ghost-btn:hover{
   opacity: 1;
 }
+.btn-wrapper{
+  width: 1122px;
+  text-align: center;
+  position: relative;
+}
+.btn-wrapper button{
+  position: absolute;
+  left: 0;
+}
+i.fa-refresh{
+  color: red;
+  transition: transform .3s ease-in-out;
+  font-size: 23px;
+  cursor: pointer;
+}
+i.fa-refresh:hover{
+  transform: rotate(180deg);
+}
+
 @media print {
-  .ghost-btn{
+  .ghost-btn, .btn-wrapper, .fa-refresh{
     display: none;
   }
+}
+@page {
+  size: landscape;
+  margin: 0
 }
