@@ -33,7 +33,7 @@ export class ApprenticeSheetService {
             sheets.push(sheet.slice(0));
           });
           this.data.push({projectId: projectId, isAllSheets: false, sheets: sheets.slice(0)});
-          this.log(`fetched ${sheetId} apprenticeSheet from ${projectId} project`)
+          this.log(`fetched ${sheetId} apprenticeSheet from ${projectId} project`);
         }),
         catchError(this.handleError<{key: number, value: string}[][]>(`get apprenticeSheet`))
       );

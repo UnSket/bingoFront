@@ -11,34 +11,15 @@ import {routeAnimation} from "../animations";
     routeAnimation
   ]
 })
-export class WelcomeScreenComponent implements OnInit, AfterViewInit {
+export class WelcomeScreenComponent implements OnInit {
   @HostBinding('@routeAnimation') get routeAnimation() {
     return '';
   }
-  state = 'inactive';
   path: string[];
 
   constructor( private route: ActivatedRoute, private router: Router ) { }
-  checkLocalStorage(): void {
-    if (localStorage.getItem('currentProject')) {
-      this.router.navigate(['project/', localStorage.getItem('currentProject')]);
-    } else {
-      this.router.navigate(['/']);
-    }
-  }
-  ngAfterViewInit() {
-    this.state = 'active';
-  }
+
   ngOnInit() {
-    this.checkLocalStorage();
   }
 
-  startAnimation(path: string[]): void {
-    console.log('connect' + path);
-    this.path = path;
-    this.redirect();
-  }
-  redirect(): void {
-    this.router.navigate(this.path);
-  }
 }

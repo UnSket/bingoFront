@@ -6,7 +6,7 @@
     <div ngbDropdown>
       <button class="btn btn-primary dropdown" id="dropdownBasic2" ngbDropdownToggle>{{choosedProject.name}}</button>
       <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-        <button (click)="choose(project)" *ngFor="let project of projects" class="dropdown-item">{{project.id}} - {{project.name}}</button>
+        <button (click)="choose(project)" *ngFor="let project of projects" class="dropdown-item">{{project.name}}</button>
         <button (click)="choose({ name: 'New project', id: -1})" class="dropdown-item">New project</button>
       </div>
     </div>

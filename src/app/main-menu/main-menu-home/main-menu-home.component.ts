@@ -31,7 +31,6 @@ export class MainMenuHomeComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.checkLocalStorage();
     this.route.paramMap.subscribe(next => {
       const id = +next.get('id');
       this.getProject(id);
@@ -49,13 +48,6 @@ export class MainMenuHomeComponent implements OnInit {
     this.apprenticeSheetService.getApprenticeSheetCount(id).subscribe( ids => {
       this.apprenticeSheetLook = ids;
     });
-  }
-  checkLocalStorage(): void {
-    if (localStorage.getItem('currentProject')) {
-      this.router.navigate(['project/', localStorage.getItem('currentProject')]);
-    } else {
-      this.router.navigate(['/']);
-    }
   }
   validate(): void {
     this.apprenticeSheetAddCount = this.apprenticeSheetAddCount > 50 - this.apprenticeSheetLook.length ?

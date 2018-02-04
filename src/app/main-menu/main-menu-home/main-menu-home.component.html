@@ -1,6 +1,6 @@
 
     <header>
-      <h1>{{project.name}}</h1>
+      <h1 *ngIf="project">{{project.name}}</h1>
     </header>
     <div class="container">
       <ngb-tabset #t = "ngbTabset" type="pills" justify="justified">

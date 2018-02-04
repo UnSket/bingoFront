@@ -56,14 +56,12 @@ export class ProjectsComponent implements OnInit {
     }
   }
   save(): void {
-    if (this.choosedProject.id === 0) {
+    if (this.choosedProject.id === -1) {
       this.projectService.addProject(this.newProject).subscribe(data => {
-        localStorage.setItem('currentProject', data);
         this.router.navigate([`/project/`, data]);
       });
     } else {
       console.log('choosed - ' + this.choosedProject.name);
-      localStorage.setItem('currentProject', this.choosedProject.id.toString());
       this.router.navigate([`/project/`, this.choosedProject.id.toString()]);
     }
     if (this.changeTab) {
@@ -72,7 +70,6 @@ export class ProjectsComponent implements OnInit {
   }
   copy(): void {
     this.projectService.copyProject(this.project.id, this.copyName).subscribe(project => {
-      localStorage.setItem('currentProject', project.id + '');
       this.router.navigate([`/project/${project.id}`]);
       if (this.changeTab) {
         this.changeTab.emit();
@@ -94,7 +91,6 @@ export class ProjectsComponent implements OnInit {
   }
   deleteProject(): void {
     this.projectService.deleteProject(this.project.id).subscribe( _ => {
-      localStorage.removeItem('currentProject');
       this.modal.close();
       this.router.navigate(['/']);
     });

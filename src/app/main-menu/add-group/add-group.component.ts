@@ -63,7 +63,7 @@ export class AddGroupComponent implements OnInit {
     }
   }
   save(): void {
-    if (this.group.id === 0) {
+    if (this.group.id === -1) {
       this.groupService.addGroup(this.project.id, this.group).subscribe(data => {
         console.log(data);
         this.currentCount ++;

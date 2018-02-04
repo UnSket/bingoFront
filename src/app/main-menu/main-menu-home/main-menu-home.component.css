@@ -1,5 +1,7 @@
 :host{
   display: block;
+  overflow: auto;
+  height: 100%;
 }
 app-projects >>> .block {
   background-color: transparent;
