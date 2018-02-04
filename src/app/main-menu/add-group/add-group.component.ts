@@ -24,8 +24,8 @@ export class AddGroupComponent implements OnInit {
 
   ngOnInit() {
     if (!this.group) {
-      this.group = {name: '', others: [], id: 0};
-      this.groupService.getGroups(this.project.id).subscribe(groups => this.currentCount = groups.length);
+      this.group = {name: '', others: [], id: -1};
+      this.groupService.getGroups(this.project.id).subscribe(groups => this.currentCount = groups.length + 1);
     }
   }
 
@@ -51,10 +51,10 @@ export class AddGroupComponent implements OnInit {
     this.currentInput = word;
   }
   clear(): void {
-    if (this.group.id === 0) {
+    if (this.group.id === -1) {
       this.editId = -1;
       this.currentInput = '';
-      this.group = {name: '', others: [], id: 0};
+      this.group = {name: '', others: [], id: -1};
     } else {
       this.groupService.removeGroup(this.group.id).subscribe( data => {
         this.end.emit(null);

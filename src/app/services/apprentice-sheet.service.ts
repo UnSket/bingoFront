@@ -3,13 +3,15 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {catchError, tap} from 'rxjs/operators';
 import {of} from 'rxjs/observable/of';
 import {Observable} from 'rxjs/observable';
+import {forEach} from "@angular/router/src/utils/collection";
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };
 @Injectable()
 export class ApprenticeSheetService {
   public spinner = false;
-  private projectUrl = `api/apprentice-sheets`;  // URL to web api
+  private projectUrl = `api/apprentice-sheets`;
+  private data: {projectId: number, isAllSheets: boolean, sheets: {key: number, value: string}[][]}[] = [];
 
   addApprenticeSheet (projectId: number, count: number): Observable<number[]> {
     this.spinner = true;
@@ -19,11 +21,23 @@ export class ApprenticeSheetService {
     );
   }
   getApprenticeSheet (projectId: number, sheetId: number): Observable<{key: number, value: string}[][]> {
-    this.spinner = true;
-    return this.http.get<{key: number, value: string}[][]>(this.projectUrl + `/getApprenticeSheet?projectId=${projectId}&sheetId=${sheetId}`).pipe(
-      tap(next => this.log(`fetched ${sheetId} apprenticeSheet from ${projectId} project`)),
-      catchError(this.handleError<{key: number, value: string}[][]>(`get apprenticeSheet`))
-    );
+    const answer = this.data.filter(next => next.projectId === projectId)//.filter(next => next.sheets.filter())
+    if (answer.length > 0) {
+      return Observable.create(observer => observer.next(answer[0].sheets));
+    } else {
+      this.spinner = true;
+      return this.http.get<{key: number, value: string}[][]>(this.projectUrl + `/getApprenticeSheet?projectId=${projectId}&sheetId=${sheetId}`).pipe(
+        tap(next => {
+          const sheets: {key: number, value: string}[][] = [];
+          next.forEach( sheet => {
+            sheets.push(sheet.slice(0));
+          });
+          this.data.push({projectId: projectId, isAllSheets: false, sheets: sheets.slice(0)});
+          this.log(`fetched ${sheetId} apprenticeSheet from ${projectId} project`)
+        }),
+        catchError(this.handleError<{key: number, value: string}[][]>(`get apprenticeSheet`))
+      );
+    }
   }
   getApprenticeSheetCount(projectId): Observable<number[]> {
     this.spinner = true;
@@ -48,7 +62,7 @@ export class ApprenticeSheetService {
   }
   private log(message: string) {
     this.spinner = false;
-    console.log('ProjectService: ' + message);
+    console.log('ApprenticeService: ' + message);
   }
   private handleError<T> (operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {

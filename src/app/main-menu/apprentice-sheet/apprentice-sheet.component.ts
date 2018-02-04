@@ -52,7 +52,6 @@ export class ApprenticeSheetComponent implements OnInit {
 
   createSheet(): void {
     this.apprenticeSheetService.getApprenticeSheet(this.project.id, this.page.id).subscribe( sheets => {
-      console.log(sheets);
       this.words = [];
       for (const words of sheets) {
         if (words.length > 0) {

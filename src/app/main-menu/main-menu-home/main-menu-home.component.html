@@ -3,13 +3,13 @@
       <h1>{{project.name}}</h1>
     </header>
     <div class="container">
-      <ngb-tabset #t = "ngbTabset" type="pills">
+      <ngb-tabset #t = "ngbTabset" type="pills" justify="justified">
         <div class="row">
           <div class="col-12 col-lg">
             <ngb-tab id="edit">
                 <ng-template ngbTabTitle><b>Add</b></ng-template>
                 <ng-template ngbTabContent>
-                <app-add-group *ngIf="project.id" [title]="'Add new group'" [project]="project"></app-add-group>
+                <app-add-group *ngIf="project.id > 0" [title]="'Add new group'" [project]="project"></app-add-group>
               </ng-template>
             </ngb-tab>
           </div>
@@ -27,7 +27,8 @@
               <ng-template ngbTabContent>
                 <div class="row">
                   <div class="col-12 text-center mb-3">
-                    <a class="btn btn-success" routerLink="teacher-sheet" routerLinkActive="active">Teacher sheet <i class="fa fa-caret-right" aria-hidden="true"></i></a>
+                    <h4 class="mb-3">Teacher sheet</h4>
+                    <a class="btn btn-success" routerLink="teacher-sheet" routerLinkActive="active">Look <i class="fa fa-caret-right" aria-hidden="true"></i></a>
                   </div>
                   <div class="col-12 text-center border-top">
                     <h4>Apprentice sheets</h4>
@@ -36,7 +37,7 @@
                     <input class="mr-2" [(ngModel)]="apprenticeSheetAddCount" placeholder="Input apprentice sheets count" type="number" min="0" max="{{50 - apprenticeSheetLook.length}}" (keyup)="validate()"/>
                     <button class="btn btn-secondary" (click)="addApprenticeSheet()"> Add </button>
                   </div>
-                  <div class="col-12 text-center mt-3">
+                  <div *ngIf="apprenticeSheetLook.length > 0" class="col-12 text-center mt-3">
                     <div *ngIf="apprenticeSheetLook" class="d-inline-block mr-2" ngbDropdown>
                       <button class="btn btn-primary dropdown" id="dropdownBasic2" ngbDropdownToggle>{{apprenticeSheetLookCurrent.name}}</button>
                       <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
@@ -54,7 +55,7 @@
             <ngb-tab>
               <ng-template ngbTabTitle><b>Change project</b></ng-template>
               <ng-template ngbTabContent>
-                <app-projects [project]="this.project"></app-projects>
+                <app-projects (changeTab)="t.select('edit')" [project]="this.project"></app-projects>
               </ng-template>
             </ngb-tab>
           </div>

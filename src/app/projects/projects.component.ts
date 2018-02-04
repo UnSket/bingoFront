@@ -3,6 +3,7 @@ import {ProjectService} from '../services/project.service';
 import {Project} from '../model/Project';
 import {Router} from '@angular/router';
 import {NgbActiveModal, NgbModal, NgbModalRef} from "@ng-bootstrap/ng-bootstrap";
+import {changeTime} from "ngx-bootstrap/timepicker/timepicker.utils";
 
 @Component({
   selector: 'app-projects',
@@ -20,7 +21,7 @@ export class ProjectsComponent implements OnInit {
   isDisabled = true;
   isCopyDisabled = true;
   modal: NgbModalRef;
-  @Output() redirect = new EventEmitter<string[]>();
+  @Output() changeTab = new EventEmitter<string[]>();
 
   constructor(
     private projectService: ProjectService,
@@ -64,13 +65,18 @@ export class ProjectsComponent implements OnInit {
       console.log('choosed - ' + this.choosedProject.name);
       localStorage.setItem('currentProject', this.choosedProject.id.toString());
       this.router.navigate([`/project/`, this.choosedProject.id.toString()]);
-      // this.redirect.emit([`/project/`, this.choosedProject.id.toString()]);
+    }
+    if (this.changeTab) {
+      this.changeTab.emit();
     }
   }
   copy(): void {
     this.projectService.copyProject(this.project.id, this.copyName).subscribe(project => {
       localStorage.setItem('currentProject', project.id + '');
       this.router.navigate([`/project/${project.id}`]);
+      if (this.changeTab) {
+        this.changeTab.emit();
+      }
     });
   }
   getProjects(): void {

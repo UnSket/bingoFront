@@ -41,7 +41,7 @@ export class GroupService {
   }
   private log(message: string) {
     this.spinner = false;
-    console.log('ProjectService: ' + message);
+    console.log('GroupService: ' + message);
   }
   private handleError<T> (operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {

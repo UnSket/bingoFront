@@ -29,6 +29,18 @@ export class MainMenuHomeComponent implements OnInit {
     private projectService: ProjectService,
     private apprenticeSheetService: ApprenticeSheetService
   ) { }
+
+  ngOnInit() {
+    this.checkLocalStorage();
+    this.route.paramMap.subscribe(next => {
+      const id = +next.get('id');
+      this.getProject(id);
+      this.getApprenticeSheetLook(id);
+    });
+    // this.project = {name: 'Project name', id: id};
+    // this.id = this.route.data
+  }
+
   getProject( id: number ): void {
     this.projectService.getProject(id)
       .subscribe(project => this.project = project);
@@ -44,16 +56,6 @@ export class MainMenuHomeComponent implements OnInit {
     } else {
       this.router.navigate(['/']);
     }
-  }
-  ngOnInit() {
-    this.checkLocalStorage();
-    this.route.paramMap.subscribe(next => {
-      const id = +next.get('id');
-      this.getProject(id);
-      this.getApprenticeSheetLook(id);
-    });
-    // this.project = {name: 'Project name', id: id};
-    // this.id = this.route.data
   }
   validate(): void {
     this.apprenticeSheetAddCount = this.apprenticeSheetAddCount > 50 - this.apprenticeSheetLook.length ?

@@ -2,7 +2,7 @@
   <div class="col-12 text-center">
     <h2>{{title}}</h2>
   </div>
-  <div *ngIf="(currentCount && currentCount < 40) || group.id" class="col-12 col-md mt-4">
+  <div *ngIf="(currentCount && currentCount < 41) || group.id !== -1" class="col-12 col-md mt-4">
     <div class="row">
       <div class="col-12 text-center">
         <input (keyup.enter)="add()" [(ngModel)]="currentInput" placeholder="Input {{group.name === '' ? 'main': 'next'}} word" >
@@ -12,7 +12,7 @@
       </div>
     </div>
   </div>
-  <div *ngIf="(group.name && currentCount && currentCount < 40) || group.id" class="col-12 col-md mt-4">
+  <div *ngIf="(group.name && currentCount && currentCount < 41) || group.id !== -1" class="col-12 col-md mt-4">
     <div class="row">
       <div class="col-12 text-center">
         <h3 class="{{editId === -2 ? 'editing' : ''}}" (click)="edit(-2, group.name)" >{{group.name}}</h3>
@@ -26,7 +26,7 @@
       </div>
     </div>
   </div>
-  <div *ngIf="currentCount && currentCount === 40 && !group.id" class="col-12 text-center">
+  <div *ngIf="currentCount && currentCount === 40 && group.id === -1" class="col-12 text-center">
     <h4 class="text-danger">You entered max count of groups</h4>
   </div>
 </div>
