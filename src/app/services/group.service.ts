@@ -4,12 +4,17 @@ import {Observable} from 'rxjs/Observable';
 import {WordGroup} from '../model/Group';
 import {catchError, tap} from 'rxjs/operators';
 import {HttpClient} from '@angular/common/http';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class GroupService {
   private projectUrl = `api/groups`;  // URL to web api
   public spinner = false;
-  constructor( private http: HttpClient ) { }
+
+  constructor(
+    private http: HttpClient,
+    private router: Router
+   ) { }
 
   getGroups(id: number) {
     this.spinner = true;
@@ -45,6 +50,9 @@ export class GroupService {
   }
   private handleError<T> (operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
+      if (error.status === 401) {
+        this.router.navigate(['/welcome/login']);
+      }
       console.error(error); // log to console instead
       this.log(`${operation} failed: ${error.message}`);
       return of(result as T);

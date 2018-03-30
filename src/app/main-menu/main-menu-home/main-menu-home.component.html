@@ -55,7 +55,15 @@
             <ngb-tab>
               <ng-template ngbTabTitle><b>Change project</b></ng-template>
               <ng-template ngbTabContent>
-                <app-projects (changeTab)="t.select('edit')" [project]="this.project"></app-projects>
+                <app-projects [@noChange] (changeTab)="t.select('edit')" [project]="this.project"></app-projects>
+              </ng-template>
+            </ngb-tab>
+          </div>
+          <div class="col-12 col-lg">
+            <ngb-tab>
+              <ng-template ngbTabTitle><b>Personal area</b></ng-template>
+              <ng-template ngbTabContent>
+                <app-personal-area></app-personal-area>
               </ng-template>
             </ngb-tab>
           </div>

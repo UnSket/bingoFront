@@ -11,7 +11,7 @@ const mainMenuRoutes: Routes = [
           path: `:id`, component: MainMenuHomeComponent
       },
       {
-        path: ``, redirectTo: '/', pathMatch: 'full'
+        path: ``, redirectTo: '/welcome/project', pathMatch: 'full'
       },
       {
         path: `:id/apprentice-sheet/:sheetId`, component: ApprenticeSheetComponent

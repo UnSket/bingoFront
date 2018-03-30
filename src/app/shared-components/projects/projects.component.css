@@ -31,7 +31,7 @@ input[type=text]{
   color: white;
 }
 input[type=text]:focus{
-  box-shadow: 0 0 15px 5px white;
+  box-shadow: 0 0 10px white;
 }
 ::-webkit-input-placeholder {color:white;}
 ::-moz-placeholder          {color:white;}/* Firefox 19+ */

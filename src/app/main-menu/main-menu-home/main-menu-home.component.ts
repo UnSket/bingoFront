@@ -2,16 +2,24 @@ import {Component, HostBinding, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ProjectService} from '../../services/project.service';
 import {Project} from '../../model/Project';
-import {routeAnimation} from '../../animations';
+import {routeAnimation} from '../../animations/animations';
 import {validate} from 'codelyzer/walkerFactory/walkerFn';
-import {ApprenticeSheetService} from "../../services/apprentice-sheet.service";
+import {ApprenticeSheetService} from '../../services/apprentice-sheet.service';
+import {animate, state, style, transition, trigger} from '@angular/animations';
 
 @Component({
   selector: 'app-main-menu-home',
   templateUrl: './main-menu-home.component.html',
   styleUrls: ['./main-menu-home.component.css'],
   animations: [
-    routeAnimation
+    routeAnimation,
+    trigger('noChange', [
+      state('in', style({transform: 'translateX(0)'})),
+      transition(':enter', [
+        style({transform: 'translateX(0)', position: 'relative'}),
+        animate('1s ease-out')
+      ])
+    ])
   ]
 })
 export class MainMenuHomeComponent implements OnInit {

@@ -1,7 +1,7 @@
 import {AfterViewInit, Component, HostBinding, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {animate, state, style, transition, trigger} from '@angular/animations';
-import {routeAnimation} from "../animations";
+import {routeAnimation} from "../animations/animations";
 
 @Component({
   selector: 'app-welcome-screen',

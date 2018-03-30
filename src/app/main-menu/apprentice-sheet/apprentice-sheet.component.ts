@@ -1,5 +1,5 @@
 import {Component, HostBinding, Input, OnInit} from '@angular/core';
-import {routeAnimation} from '../../animations';
+import {routeAnimation} from '../../animations/animations';
 import {ProjectService} from '../../services/project.service';
 import {ActivatedRoute, ParamMap, Router} from '@angular/router';
 import {Project} from '../../model/Project';

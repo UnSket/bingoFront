@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
+import { Route, Router } from '@angular/router';
 import {catchError, tap} from 'rxjs/operators';
 import {of} from 'rxjs/observable/of';
 import {Observable} from 'rxjs/observable';
@@ -66,13 +67,17 @@ export class ApprenticeSheetService {
   }
   private handleError<T> (operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
+      if (error.status === 401) {
+        this.router.navigate(['welcome/login?from=' + this.router.url]);
+      }
       console.error(error); // log to console instead
       this.log(`${operation} failed: ${error.message}`);
       return of(result as T);
     };
   }
   constructor(
-    private http: HttpClient
+    private http: HttpClient,
+    private router: Router
   ) { }
 
 

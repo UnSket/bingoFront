@@ -1,37 +1,30 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {Observable} from 'rxjs/Observable';
+import {HttpClient} from '@angular/common/http';
 import {catchError, tap} from 'rxjs/operators';
+import {ActivatedRoute, Router} from '@angular/router';
 import {of} from 'rxjs/observable/of';
+import {Observable} from 'rxjs/Observable';
 import {Project} from '../model/Project';
-import {WordGroup} from '../model/Group';
-import { Router, ActivatedRoute } from '@angular/router';
+import {User} from '../model/User';
 
 @Injectable()
-export class ProjectService {
-  private projectUrl = `api/projects`;  // URL to web api
+export class UserService {
+
+  private userUrl = `api/user`;  // URL to web api
   public spinner = false;
   constructor(
     private http: HttpClient,
     private router: Router,
-    private activeRouter: ActivatedRoute
   ) { }
 
-  getAllProjects(): Observable<Project[]> {
+  getUser(): Observable<User> {
     this.spinner = true;
-    return this.http.get<Project[]>(`${this.projectUrl}/getAll`).pipe(
-      tap(_ => this.log(`fetched projects`)),
-      catchError(this.handleError<Project[]>(`get all project`))
+    return this.http.get<User>(this.userUrl + `/info` ).pipe(
+      tap(next => this.log(`fetched user ${next.login}`)),
+      catchError(this.handleError<User>(`catch user`))
     );
   }
-  getProject(id: number): Observable<Project> {
-    this.spinner = true;
-    return this.http.get<Project>(this.projectUrl + `?id=${id}` ).pipe(
-      tap(next => this.log(`fetched project ${next.name}`)),
-      catchError(this.handleError<Project>(`get all project`))
-    );
-  }
-  addProject (project: string): Observable<string> {
+  /*addProject (project: string): Observable<string> {
     this.spinner = true;
     return this.http.post<string>(this.projectUrl + `?name=${project}`, project).pipe(
       tap(_ => this.log(`added project id=${project}`)),
@@ -51,7 +44,7 @@ export class ProjectService {
       tap(_ => this.log(`delete project with id=${projectId}`)),
       catchError(this.handleError<string>('deleteProject'))
     );
-  }
+  }*/
   private log(message: string) {
     this.spinner = false;
     console.log('ProjectService: ' + message);
@@ -65,5 +58,4 @@ export class ProjectService {
       return of(result as T);
     };
   }
-
 }

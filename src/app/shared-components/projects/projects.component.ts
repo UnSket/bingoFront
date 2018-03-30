@@ -1,16 +1,26 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {ProjectService} from '../services/project.service';
-import {Project} from '../model/Project';
+import {Component, EventEmitter, HostBinding, Input, OnInit, Output} from '@angular/core';
+import {ProjectService} from '../../services/project.service';
+import {Project} from '../../model/Project';
 import {Router} from '@angular/router';
 import {NgbActiveModal, NgbModal, NgbModalRef} from "@ng-bootstrap/ng-bootstrap";
 import {changeTime} from "ngx-bootstrap/timepicker/timepicker.utils";
+import {routeAnimation} from '../../animations/animations';
+import {slideSideAnimation} from '../../animations/slideSide';
 
 @Component({
   selector: 'app-projects',
   templateUrl: './projects.component.html',
-  styleUrls: ['./projects.component.css']
+  styleUrls: ['./projects.component.css'],
+  animations: [ slideSideAnimation ]
 })
 export class ProjectsComponent implements OnInit {
+  @HostBinding('@slideSideAnimation') get routeAnimation() {
+    if (!this.project) {
+      return '';
+    } else {
+      return null;
+    }
+  }
   newProject: string;
   copyName: string;
   @Input() project: Project;
@@ -27,7 +37,11 @@ export class ProjectsComponent implements OnInit {
     private projectService: ProjectService,
     private router: Router,
     private modalService: NgbModal
-  ) { }
+  ) {
+    if (!this.project) {
+
+    }
+  }
   ngOnInit() {
     this.getProjects();
   }

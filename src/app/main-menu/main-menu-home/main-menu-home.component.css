@@ -29,7 +29,7 @@ input[type=number]{
   box-shadow: none;
 }
 input[type=number]:focus{
-  box-shadow: 0 0 15px 5px white;
+  box-shadow: 0 0 10px white;
 }
 input[type=number]::-webkit-input-placeholder {color: rgb(182, 182, 182);}
 input[type=number]::-moz-placeholder          {color:rgb(182, 182, 182);}/* Firefox 19+ */
@@ -46,7 +46,7 @@ input[type=text]{
   color: white;
 }
 input[type=text]:focus{
-  box-shadow: 0 0 15px 5px white;
+  box-shadow: 0 0 10px white;
 }
 input[type=text]::-webkit-input-placeholder {color:white;}
 input[type=text]::-moz-placeholder          {color:white;}/* Firefox 19+ */

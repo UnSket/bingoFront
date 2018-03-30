@@ -2,7 +2,7 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Project} from '../../model/Project';
 import {WordGroup} from '../../model/Group';
 import {ProjectService} from '../../services/project.service';
-import {GroupService} from "../../services/group.service";
+import {GroupService} from '../../services/group.service';
 
 @Component({
   selector: 'app-add-group',

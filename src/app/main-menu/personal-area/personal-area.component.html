@@ -1,0 +1,19 @@
+<div *ngIf="this.user" class="row">
+  <div class="col-12 text-center">
+    <h3>USER INFO</h3>
+  </div>
+  <div class="col-12 text-center">
+    login : {{this.user?.login}}
+  </div>
+  <div class="col-12 text-center">
+    name : {{this.user?.name}}
+  </div>
+  <div class="col-12 text-center">
+    email : {{this.user?.email}}
+  </div>
+</div>
+<div class="row">
+  <div class="col-12 text-center mt-3">
+    <button (click)="this.logout()" class="btn btn-danger">Sign out</button>
+  </div>
+</div>

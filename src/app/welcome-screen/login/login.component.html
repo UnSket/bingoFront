@@ -1,0 +1,17 @@
+<div class="block">
+  <div class="col-12 text-center">
+    <h3>Sign in</h3>
+  </div>
+  <div class="col-12 text-center mt-3">
+    <input (keyup.enter)="login()" onfocus="this.error = null" [(ngModel)]="this.username"  type="text" placeholder="Login">
+  </div>
+  <div class="col-12 text-center mt-3">
+    <input (keyup.enter)="login()" onfocus="this.error = null" [(ngModel)]="this.password" type="password" placeholder="Password">
+  </div>
+  <div class="col-12 text-center mt-3">
+    <button (click)="login()" class="btn btn-primary">Sign in</button>
+  </div>
+  <div class="col-12 text-center mt-3">
+    <ngb-alert [@slideDown] *ngIf="error" [dismissible]="false" type="danger">{{ error }}</ngb-alert>
+  </div>
+</div>

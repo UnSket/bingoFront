@@ -1,11 +1,10 @@
 import {Component, HostBinding, OnInit} from '@angular/core';
-import {ProjectService} from "../../services/project.service";
-import {WordGroup} from "../../model/Group";
-import {ActivatedRoute, Router} from "@angular/router";
-import {Project} from "../../model/Project";
-import {routeAnimation} from "../../animations";
-import {GroupAst} from "@angular/animations/browser/src/dsl/animation_ast";
-import {GroupService} from "../../services/group.service";
+import {ProjectService} from '../../services/project.service';
+import {WordGroup} from '../../model/Group';
+import {ActivatedRoute, Router} from '@angular/router';
+import {Project} from '../../model/Project';
+import {routeAnimation} from '../../animations/animations';
+import {GroupService} from '../../services/group.service';
 
 @Component({
   selector: 'app-teacher-sheet',
